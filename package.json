@@ -1,0 +1,29 @@
+{
+  "name": "udemy-chafa",
+  "version": "1.0.0",
+  "description": "Clases locas y tontas para todo el mundo",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:css": "npx @tailwindcss/cli -i ./resources/css/app.css -o ./public/assets/css/app.css --watch",
+    "build:css": "npx @tailwindcss/cli -i ./resources/css/app.css -o ./public/assets/css/app.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KACHBENT/Udemy-Chafa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KACHBENT/Udemy-Chafa/issues"
+  },
+  "homepage": "https://github.com/KACHBENT/Udemy-Chafa#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.2.3",
+    "tailwindcss": "^4.2.3"
+  }
+}

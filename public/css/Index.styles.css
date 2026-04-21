@@ -1,0 +1,721 @@
+:root {
+  --sidebar-w: 260px;
+  --color-fondo: rgb(213, 213, 213);
+  --color-menta: rgb(32, 96, 61);
+  --color-menta-ligero: rgb(49, 154, 96);
+  --color-gris-plateado: rgb(138, 149, 151);
+  --color-gris-plateado-ligero: rgb(184, 200, 200);
+  --color-turquesa-ligero: rgb(137, 211, 204);
+  --color-turquesa-fuerte: rgb(64, 243, 225);
+  --inv-bg-1: #050814;
+  --inv-bg-2: #0b1634;
+  --inv-panel: rgba(255, 255, 255, .04);
+  --inv-border: rgba(255, 255, 255, .10);
+  --inv-text: rgba(255, 255, 255, .92);
+  --inv-muted: rgba(255, 255, 255, .62);
+  --inv-danger: #ff3b3b;
+  --inv-warn: #ff9f0a;
+  --inv-ok: #22e58a;
+  --inv-accent-1: #8b5cf6;
+  --inv-accent-2: #ff2d8f;
+  --soft: rgba(0, 0, 0, .06);
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+/* ====== 2) Fondo de página y centrado ====== */
+/* Si ya pones class="fondo" en <body>, usa esto: */
+.fondo {
+  background: linear-gradient(204deg, rgb(14 179 157), rgb(255 255 255));
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  z-index: 1;
+}
+
+.fondo::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(255 255 255 / 11%);
+  z-index: -1;
+  /* el overlay queda detrás del contenido */
+}
+
+
+/* Contenido principal centrado verticalmente (si lo usas en tu <main>) */
+main#content {
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  /* centra vertical */
+  justify-content: center;
+  /* centra horizontal */
+  padding: 2rem 1rem;
+  /* respiración */
+}
+
+/* ====== 3) Tarjeta translúcida bonita para formularios ====== */
+.bg-white-custom {
+  background: rgb(255 255 255 / 45%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, .6);
+  border-radius: 1rem;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, .18);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Título con línea inferior */
+.linea-contenedor {
+  position: relative;
+  padding-bottom: .25rem;
+  margin-bottom: .75rem;
+}
+
+.linea-contenedor::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, rgb(15, 129, 167), rgb(217, 219, 220));
+  border-radius: 2px;
+}
+
+/* ====== 4) Inputs y focus (sin “brincos”) ====== */
+.input-group {
+  border-radius: .5rem;
+  overflow: hidden;
+  /* evita “brinco” al hacer focus */
+  border: 1px solid #ced4da;
+}
+
+.input-group .form-control,
+.input-group .form-select,
+.input-group .input-group-text {
+  border: none !important;
+  /* ya tiene borde el contenedor */
+}
+
+.form-control:focus,
+.form-select:focus {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.input-group:focus-within {
+  border-color: rgb(68, 124, 202);
+  box-shadow: 0 0 0 .25rem rgba(82, 163, 210, .25);
+  transition: all .2s ease-in-out;
+}
+
+.input-group-text {
+  background-color: #f1f3f5;
+}
+
+/* ====== 5) Navbar / Offcanvas: encapsula text-bg-dark ====== */
+nav .text-bg-dark {
+  background-color: transparent !important;
+  /* SOLO dentro de nav */
+}
+
+@media (min-width: 992px) {
+  #sidebar.offcanvas-lg {
+    position: fixed;
+    transform: none !important;
+    visibility: visible !important;
+    top: 0;
+    left: 0;
+    border-right: 1px solid rgba(255, 255, 255, .1);
+  }
+
+  .offcanvas-backdrop {
+    display: none !important;
+  }
+}
+
+/* ====== 6) Toasters: encima de todo ====== */
+.toast-container {
+  z-index: 1200;
+}
+
+.offcanvas {
+  z-index: 1065;
+}
+
+/* menor que 1200 */
+
+/* ====== 7) Botón principal más “firme” ====== */
+.btn-primary {
+  font-weight: 600;
+  transition: transform .12s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+}
+
+/* ====== 8) Responsive ====== */
+@media (max-width: 991.98px) {
+
+  /* Evita “parallax” en móviles si usas fondo fijo */
+  .fondo {
+    background-attachment: scroll;
+  }
+
+  .card.bg-white-custom {
+    margin: 0 1rem;
+  }
+}
+
+.toast-container {
+  z-index: 2000;
+}
+
+.toast {
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
+}
+
+.toast .btn-close {
+  filter: brightness(0) invert(1);
+  opacity: .75;
+}
+
+.toast .btn-close:hover {
+  opacity: 1;
+}
+
+#toastMount {
+  position: fixed;
+  top: 3rem;
+  right: 1rem;
+  z-index: 2000;
+  pointer-events: none;
+}
+
+#toastContainer {
+  pointer-events: none;
+  margin-top: 50px;
+}
+
+/* igual */
+#toastContainer .toast {
+  pointer-events: auto;
+}
+
+
+.toast.toast-glass {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, .18) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+}
+
+.toast-icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, .18);
+  border: 1px solid rgba(255, 255, 255, .25);
+  justify-content: center;
+}
+
+.toast-icon img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.toast-body {
+  font-size: .95rem;
+  line-height: 1.25rem;
+}
+
+.toast-progress {
+  height: 3px;
+  width: 100%;
+  transform-origin: left;
+  animation: toastProgress linear forwards;
+  opacity: .9;
+}
+
+@keyframes toastProgress {
+  from {
+    transform: scaleX(1);
+  }
+
+  to {
+    transform: scaleX(0);
+  }
+}
+
+
+
+.linea-contenedor {
+  position: relative;
+}
+
+.linea-contenedor::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, rgb(15, 129, 167), rgb(217, 219, 220));
+}
+
+.fondo {
+  background-color: var(--color-turquesa-ligero);
+}
+
+.bg-menta {
+  background-color: var(--color-menta);
+}
+
+.bg-menta-light {
+  background-color: var(--color-menta-ligero);
+}
+
+.footer {
+  padding: 40px;
+  background-color: black;
+  color: white;
+  margin-bottom: 0;
+}
+
+.footer {
+  grid-area: 4 / 1 / 5 / 2;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main#content {
+  flex: 1 0 auto;
+  padding-bottom: 2rem;
+}
+
+body {
+  padding-top: 0 !important;
+}
+
+/* ====================== Navbar superior (tu CSS) ====================== */
+.navbar-custom {
+  background: linear-gradient(90deg, #0d6efd 0%, #0a58ca 100%);
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+  margin-bottom: 20px;
+}
+
+.navbar-custom .navbar-brand {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+}
+
+.navbar-custom .nav-link {
+  color: #e9ecef;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  transition: color .3s ease, text-decoration .3s ease;
+}
+
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-link.active {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.dashboard {
+  margin-top: 15% !important;
+  margin-bottom: 20% !important;
+}
+
+#sidebar {
+  width: var(--sidebar-w);
+}
+
+@media (min-width: 992px) {
+  #sidebar.offcanvas-lg {
+    position: fixed;
+    transform: none !important;
+    visibility: visible !important;
+    top: 0;
+    left: 0;
+    border-right: 1px solid rgba(255, 255, 255, .1);
+  }
+
+  .offcanvas-backdrop {
+    display: none !important;
+  }
+}
+
+.navbar.d-lg-none {
+  padding-top: .35rem;
+  padding-bottom: .35rem;
+  margin-bottom: 0;
+}
+
+.dashboard {
+  margin-top: 1rem !important;
+  margin-bottom: 2rem !important;
+}
+
+@media (max-width: 991.98px) {
+  .fondo {
+    background-attachment: scroll;
+  }
+}
+
+.offcanvas {
+  z-index: 1065;
+}
+
+.bg-custom {
+  background: linear-gradient(114deg, rgb(59 205 187), rgb(36 111 79));
+  border-color: rgb(255, 255, 255) !important;
+  border-bottom: 2px solid;
+}
+
+.icon {
+  height: 50px;
+  width: 50px;
+}
+
+.container-custom-icon {
+  border: 1px solid transparent;
+  border-radius: 25px;
+  padding: 1.5px;
+}
+
+.text-bg-dark {
+  background-color: transparent !important;
+}
+
+.offcanvas-body,
+.offcanvas-header {
+  background: linear-gradient(269deg, rgb(64 224 208), rgb(32 96 61));
+}
+
+/* ====================== Filters ====================== */
+.black-filter {
+  filter: brightness(0) saturate(100%);
+}
+
+.filter-red {
+  filter: invert(23%) sepia(91%) saturate(7480%) hue-rotate(347deg) brightness(93%) contrast(126%);
+}
+
+.filter-yellow {
+  filter: invert(79%) sepia(69%) saturate(665%) hue-rotate(359deg) brightness(103%) contrast(105%);
+}
+
+.filter-green {
+  filter: invert(48%) sepia(33%) saturate(7373%) hue-rotate(62deg) brightness(100%) contrast(126%);
+}
+
+.white {
+  filter: brightness(0) invert(1);
+}
+
+.grayscale {
+  filter: grayscale(100%);
+}
+
+.invert {
+  filter: invert(100%);
+}
+
+.sepia {
+  filter: sepia(100%);
+}
+
+.black-filter {
+  filter: brightness(0) saturate(100%);
+}
+
+.saturate {
+  filter: saturate(5);
+}
+
+.darken {
+  filter: brightness(25%);
+}
+
+.darken:hover {
+  filter: contrast(200%);
+}
+
+.lighten {
+  filter: brightness(150%);
+}
+
+.high-contrast {
+  filter: contrast(200%);
+}
+
+.red {
+  filter: hue-rotate(0deg) saturate(500%) brightness(90%);
+}
+
+.green {
+  filter: hue-rotate(90deg) saturate(500%) brightness(90%);
+}
+
+.filter-blue {
+  filter: hue-rotate(200deg) saturate(500%) brightness(90%);
+}
+
+.pink {
+  filter: hue-rotate(300deg) saturate(500%) brightness(95%);
+}
+
+
+.ico-menu {
+  height: 30px;
+  width: 30px;
+}
+
+
+@media (min-width: 992px) {
+  .offcanvas-lg .offcanvas-body {
+    display: flex;
+    flex-grow: 0;
+    padding: 0;
+    overflow-y: visible;
+    background-color: var(--color-menta) !important;
+  }
+
+  .text-bg-dark {
+    background-color: var(--color-menta) !important;
+  }
+}
+
+.form-control:focus,
+.form-select:focus {
+  outline: none !important;
+  border-color: rgb(72 180 112) !important;
+  box-shadow: none !important;
+}
+
+.input-group:focus-within {
+  border: 1px solid rgb(68 202 100);
+  box-shadow: 0 0 0 .25rem rgb(82 210 144 / 25%);
+  border-radius: .5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.input-group:focus-within .input-group-text {
+  background-color: rgb(119 218 159 / 70%);
+  transition: background-color 0.3s;
+}
+
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+.content-logo-business {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.nav-close {
+  border-color: white;
+  cursor: pointer;
+  border: 2px solid;
+  border-radius: 5px;
+  background: linear-gradient(237deg, rgb(59 205 187), rgb(36 111 79));
+}
+
+
+.offcanvas-header {
+  background: linear-gradient(185deg, rgb(64 224 208), rgb(32 96 61));
+  border-color: rgb(255, 255, 255) !important;
+  border-bottom: 2px solid;
+}
+
+
+.btn:hover img.filter-green {
+  filter: invert(100%) sepia(33%) saturate(7373%) hue-rotate(177deg) brightness(100%) contrast(126%);
+}
+
+.btn:hover img.filter-red {
+  filter: invert(100%) sepia(33%) saturate(7373%) hue-rotate(177deg) brightness(100%) contrast(126%);
+}
+
+.btn:hover img.filter-yellow {
+  filter: invert(100%) sepia(33%) saturate(7373%) hue-rotate(177deg) brightness(100%) contrast(126%);
+}
+
+.linea-contenedor {
+  position: relative;
+}
+
+.linea-contenedor::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, rgb(0 0 0), rgb(255 255 255));
+}
+
+.card-header-custom {
+  background: linear-gradient(210deg, rgb(95 243 225), rgb(36 111 79));
+  border: none;
+  color: white !important;
+  padding: 15px !important;
+}
+
+.card {
+  border-radius: 1.375rem !important;
+}
+
+.card-header:first-child {
+  border-radius: calc(1.375rem - (1px)) calc(1.375rem - (1px)) 0 0 !important
+}
+
+.border-color-navbar {
+  border-color: rgb(255, 255, 255) !important;
+  border: 2px solid;
+}
+
+.btn-inicio {
+  cursor: pointer;
+  border: 2px solid;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.768);
+  background: linear-gradient(90deg, rgb(54 151 123), rgb(78 204 182));
+}
+
+.btn-register {
+  cursor: pointer;
+  border: 2px solid;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.768);
+  background: linear-gradient(180deg, rgb(54 151 123), rgb(78 204 182));
+}
+
+.inv-input {
+  width: 100%;
+  border-radius: 14px;
+  padding: 14px 14px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  background: rgb(72 192 168);
+  color: rgba(255, 255, 255, .90);
+  outline: none;
+}
+
+.nav-link-list:hover {
+  border-left: #32a990 solid 2px;
+  background-color: rgba(0, 0, 0, 0.500);
+}
+
+.nav-link-function:hover {
+  border: 2px solid white;
+  border-radius: 5px;
+}
+
+/* ! Configuracion del scrollbar*/
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2a896c6e;
+  border-radius: 999px;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: #32a990;
+  border-radius: 999px;
+  border: 2px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9e9e9e;
+}
+
+
+.card-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(253deg, #36c7b8, #ffffff);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-bar {
+  background: linear-gradient(358deg, #36c7b8, #e8fff2) !important;
+}
+
+.form-check-input:checked {
+  background-color: #36c7b8;
+  border-color: var(--color-menta);
+  border: 2px solid transparent;
+}
+
+.form-check-input:focus {
+  outline: none;
+  border-color: var(--color-menta);
+  box-shadow: 0 0 0 0.25rem rgba(62, 232, 153, 0.25);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--color-menta) !important;
+  box-shadow: 0 0 0 0.25rem rgba(62, 232, 181, 0.25);
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}

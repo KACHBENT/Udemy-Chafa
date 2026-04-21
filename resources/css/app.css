@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* Solo si Tailwind no detecta tus vistas automáticamente */
+@source "../../app/Views";

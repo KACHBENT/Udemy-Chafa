@@ -1,0 +1,32 @@
+RewriteEngine On
+RewriteBase /Udemy-Chafa/
+
+Options -Indexes
+
+# -----------------------------
+# 1) Si es asset y existe en /public
+# -----------------------------
+RewriteCond %{REQUEST_URI} !^/Udemy-Chafa/public/
+
+# Construir ruta REAL quitando el prefijo /Proyect_Appforrajes
+RewriteCond %{DOCUMENT_ROOT}/Udemy-Chafa/public/$1 -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/Udemy-Chafa/public/$1 -d
+RewriteRule ^(.+)$ public/$1 [L]
+
+# -----------------------------
+# 2) Raíz -> front controller
+# -----------------------------
+RewriteRule ^$ public/index.php [L]
+
+# -----------------------------
+# 3) Todo lo demás -> front controller
+# -----------------------------
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/index.php/$1 [L,QSA]
+
+# -----------------------------
+# 4) Mantener Authorization (JWT)
+# -----------------------------
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
