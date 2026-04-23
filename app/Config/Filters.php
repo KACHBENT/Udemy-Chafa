@@ -37,7 +37,7 @@ class Filters extends BaseFilters
 
     // Filtros personalizados
     'jwt'           => \App\Filters\JWTAuthFilter::class,
-    'sessionAuth' => \App\Filters\SessionAuthFilter::class, 
+    'auth' => \App\Filters\AuthFilter::class, 
     'role' => \App\Filters\RoleFilter::class,
 ];
 

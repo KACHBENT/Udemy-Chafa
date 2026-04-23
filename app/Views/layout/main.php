@@ -15,7 +15,7 @@
    <link rel="stylesheet" href="<?= base_url('assets/css/app.css') ?>">
   <?= $this->renderSection('css') ?>
 
-  <link rel="shortcut icon" href="<?= base_url('favicon.ico') ?>" type="image/x-icon">
+  <link rel="shortcut icon" href="<?= base_url('favicon.ico') ?>" type="image/x-icon" style="width: 25px; height: auto;">
 </head>
 
 
@@ -36,8 +36,8 @@
   <script src="<?= base_url('bootstrap-5.3.3/js/bootstrap.bundle.min.js') ?>"></script>
   <script>
     (function () {
-      const IMG_SUCCESS = "<?= base_url('images/perrito-feliz.webp') ?>";
-      const IMG_ERROR = "<?= base_url('images/perrito-triste.webp') ?>";
+      const IMG_SUCCESS = "<?= base_url('images/robot-feliz.png') ?>";
+      const IMG_ERROR = "<?= base_url('images/robot-triste.png') ?>";
 
       function escapeHtml(s) {
         return String(s)

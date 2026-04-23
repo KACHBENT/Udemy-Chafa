@@ -4,52 +4,112 @@ use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
 
+$routes->group('', ['filter' => 'auth'], static function ($routes) {
+    $routes->get(
+        '/',
+        'HomeController::index'
+    );
+});
+
+$routes->group('perfil', ['filter' => 'auth'], static function ($routes) {
+    $routes->get(
+        '/',
+        'PerfilController::index'
+    );
+    $routes->post(
+        'actualizar',
+        'PerfilController::actualizar'
+    );
+});
+
+
+$routes->group('usuarios', ['filter' => 'auth'], static function ($routes) {
+    $routes->get(
+        '/',
+        'UsuarioCrudController::index',
+        ['filter' => 'role:Administrador']
+    );
+    $routes->get(
+        'nuevo',
+        'UsuarioCrudController::nuevo',
+        ['filter' => 'role:Administrador']
+    );
+    $routes->post(
+        'guardar',
+        'UsuarioCrudController::guardar',
+        ['filter' => 'role:Administrador']
+    );
+    $routes->get(
+        'editar/(:num)',
+        'UsuarioCrudController::editar/$1',
+        ['filter' => 'role:Administrador']
+    );
+    $routes->post(
+        'actualizar/(:num)',
+        'UsuarioCrudController::actualizar/$1',
+        ['filter' => 'role:Administrador']
+    );
+    $routes->get(
+        'eliminar/(:num)',
+        'UsuarioCrudController::eliminar/$1',
+        ['filter' => 'role:Administrador']
+    );
+});
+
+
 // =====================================================
-// TODO ADMINISTRACION DE ACCESOS POR RUTAS 
+// ! ADMINISTRACION DE ACCESOS POR RUTAS 
 // =====================================================
-/*
-$routes->group('auth', ['filter' => 'csrf'], static function ($routes): void {
+/* todo Ejemplo de filtro por rol
+$routes->get(
+        '/',
+        'DetalleProductoController::index',
+        ['filter' => 'role:ADMIN,EMPLEADO']
+    );
+
+*/
+
+$routes->group('acceso', static function ($routes) {
     $routes->get(
         'login',
-        'AdministracionAcceso::showLoginForm',
-        ['as' => 'auth.login']
+        'AccesoController::login'
     );
     $routes->post(
-        'login',
-        'AdministracionAcceso::login'
+        'autenticar',
+        'AccesoController::autenticar'
     );
-
     $routes->get(
-        'register',
-        'AdministracionAcceso::showRegisterForm',
-        ['as' => 'auth.register']
+        'registro',
+        'AccesoController::registro'
     );
     $routes->post(
-        'register',
-        'AdministracionAcceso::register'
-    );
-
-    $routes->get(
-        'verificar-email/(:any)',
-        'AdministracionAcceso::verificarEmail/$1'
+        'guardar-registro',
+        'AccesoController::guardarRegistro'
     );
     $routes->get(
-        'verificado',
-        'AdministracionAcceso::verificado'
+        'recuperar',
+        'AccesoController::recuperar'
     );
-
     $routes->post(
-        'refresh',
-        'AdministracionAcceso::refresh'
+        'enviar-recuperacion',
+        'AccesoController::enviarRecuperacion'
+    );
+    $routes->get(
+        'restablecer',
+        'AccesoController::restablecer'
+    );
+    $routes->post(
+        'actualizar-password',
+        'AccesoController::actualizarPassword'
     );
     $routes->get(
         'logout',
-        'AdministracionAcceso::logout'
+        'AccesoController::logout'
     );
 });
-*/
 
-$routes->get(
-    'Home',
-    'HomeController::index'
-);
+
+
+// =====================================================
+// ! ruta de bienvenida
+// =====================================================
